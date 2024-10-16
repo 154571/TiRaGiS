@@ -2,16 +2,29 @@
 
 import math
 import random
+import os
 
 def print_matrix(matrix) -> None:
     for i in range(len(matrix)):
         for j in range(len(matrix[i])):
             print(matrix[i][j], end="")
         print()
-             
 
-HEIGHT = 30
-WIDTH = 30
+def intinput(text, values = None):
+    while True:
+        try:
+            ret = int(input(text))
+        except:
+            print("Invalid input\n")
+        finally:
+            if ((values != None) and (ret in values)) or (values == None):
+                break
+    return ret
+
+savefile = None
+HEIGHT = None
+WIDTH = None
+
 
 class CITY:
     def __init__(self, coord) -> None:
@@ -62,7 +75,14 @@ class WORLD:
                     self.MAP_RIVERS[begin_y][begin_x - j] = 1
                 begin_x = random.randint(begin_x, river_lenght + begin_x)
 
-        
-        
-a = WORLD()
-print_matrix(a.MAP_RIVERS)
+def new_game():
+    global HEIGHT, WIDTH
+
+    HEIGHT = intinput("Enter the height")
+    WIDTH = intinput("Enter the width")
+
+
+def start():
+    nmp = intinput("1: new game\n2: load existing world", [1, 2])
+    if nmp == 1:
+        new_game()
